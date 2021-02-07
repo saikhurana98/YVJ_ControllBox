@@ -6,11 +6,11 @@
 #define BOARD_HARDWARE_VERSION        "1.0.0"
 
 #define BOARD_FIRMWARE_TYPE           "FW01"                // Unique identifier of a firmware
-#define BOARD_NAME                    "Product Name"        // Name of your product. Should match App Export request info.
-#define BOARD_VENDOR                  "Company Name"        // Name of your company. Should match App Export request info.
-#define BOARD_TEMPLATE_ID             "TMPL0000"            // ID of the Tile Template. Can be found in Tile Template Settings
+#define BOARD_NAME                    "YVJ_ControlBox"        // Name of your product. Should match App Export request info.
+#define BOARD_VENDOR                  "QuadCore"        // Name of your company. Should match App Export request info.
+#define BOARD_TEMPLATE_ID             "TMPL75529"            // ID of the Tile Template. Can be found in Tile Template Settings
 
-#define PRODUCT_WIFI_SSID             "Our Product"         // Name of the device, to be displayed during configuration. Should match export request info.
+#define PRODUCT_WIFI_SSID             "YVJ_ControlBox_1"         // Name of the device, to be displayed during configuration. Should match export request info.
 #define BOARD_CONFIG_AP_URL           "our-product.cc"      // Config page will be available in a browser at 'http://our-product.cc/'
 
 #define BOARD_DEFAULT_SERVER          "blynk-cloud.com"     // Default server to connect to (Blynk App may override it)
