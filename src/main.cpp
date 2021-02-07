@@ -34,8 +34,8 @@
 #define led_strip_b D6
 
 #define relay_1 D0
-#define relay_2 D5
-#define relay_3 D1
+#define relay_2 D1
+#define relay_3 D5
 #define relay_4 3 // RX
 
 #define relay_input_1 D2
