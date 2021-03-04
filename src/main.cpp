@@ -42,11 +42,16 @@
 #define relay_input_2 D3
 
 // APP Layout
+#define ledPwr V0
 #define zRGBra V1
 #define blynk_switch_1 V2
 #define blynk_switch_2 V3
 #define blynk_switch_3 V4
 #define blynk_switch_4 V5
+#define ledBright V6
+#define slideR V7
+#define slideG V8
+#define slideB V9
 
 struct color
 {
@@ -58,10 +63,12 @@ struct color
 // Global Variables
 color prev_color;
 color curr_color;
+uint8_t curr_bright = 100;
 bool relay_1_state = false;
 bool relay_2_state = false;
 bool relay_3_state = false;
 bool relay_4_state = false;
+bool pwrState = true;
 
 // Global Object Instances
 BlynkTimer timer;
@@ -69,6 +76,8 @@ ezButton relay_button_1(relay_input_1);
 ezButton relay_button_2(relay_input_2);
 // Function Definitions
 void write_color(color rgb);
+void setColor(color rgb, uint16_t brightness);
+
 void setup()
 {
   delay(100);
@@ -181,6 +190,20 @@ void loop()
   }
 }
 
+BLYNK_WRITE(ledPwr)
+{
+  if (!param.asInt())
+  {
+    Blynk.virtualWrite(ledBright,0);
+    setColor(curr_color, 0);
+    pwrState = false;
+    return;
+  }
+    pwrState = true;
+    Blynk.virtualWrite(ledBright,curr_bright);
+  setColor(curr_color, curr_bright);
+}
+
 BLYNK_WRITE(zRGBra)
 {
   color rgb;
@@ -213,6 +236,63 @@ BLYNK_WRITE(blynk_switch_4)
 {
   relay_4_state = (bool)param.asInt();
   digitalWrite(relay_4, !relay_4_state);
+}
+
+BLYNK_WRITE(ledBright)
+{
+  curr_bright = param.asInt();
+  setColor(curr_color, curr_bright);
+}
+
+BLYNK_WRITE(slideR)
+{
+  curr_color.r = param.asInt();
+  Blynk.virtualWrite(zRGBra, curr_color.r, curr_color.g, curr_color.b);
+  setColor(curr_color, curr_bright);
+}
+BLYNK_WRITE(slideG)
+{
+  curr_color.g = param.asInt();
+  Blynk.virtualWrite(zRGBra, curr_color.r, curr_color.g, curr_color.b);
+  setColor(curr_color, curr_bright);
+}
+BLYNK_WRITE(slideB)
+{
+  curr_color.b = param.asInt();
+  Blynk.virtualWrite(zRGBra, curr_color.r, curr_color.g, curr_color.b);
+  setColor(curr_color, curr_bright);
+}
+
+
+void setColor(color rgb, uint16_t brightness)
+{
+  if (pwrState)
+  {
+    rgb.r = (uint32_t)rgb.r * brightness / 100;
+    rgb.g = (uint32_t)rgb.g * brightness / 100;
+    rgb.b = (uint32_t)rgb.b * brightness / 100;
+
+    // write_color(rgb);
+    while (prev_color.r != rgb.r || prev_color.g != rgb.g || prev_color.b != rgb.b)
+    {
+      if (prev_color.r < rgb.r)
+        prev_color.r += 1;
+      if (prev_color.r > rgb.r)
+        prev_color.r -= 1;
+
+      if (prev_color.g < rgb.g)
+        prev_color.g += 1;
+      if (prev_color.g > rgb.g)
+        prev_color.g -= 1;
+
+      if (prev_color.b < rgb.b)
+        prev_color.b += 1;
+      if (prev_color.b > rgb.b)
+        prev_color.b -= 1;
+
+      write_color(prev_color);
+    }
+  }
 }
 
 void write_color(color rgb)
