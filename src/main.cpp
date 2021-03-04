@@ -52,6 +52,7 @@
 #define slideR V7
 #define slideG V8
 #define slideB V9
+// #define bridge V10
 
 struct color
 {
@@ -74,6 +75,8 @@ bool pwrState = true;
 BlynkTimer timer;
 ezButton relay_button_1(relay_input_1);
 ezButton relay_button_2(relay_input_2);
+// WidgetBridge bridge1(bridge);
+
 // Function Definitions
 void write_color(color rgb);
 void setColor(color rgb, uint16_t brightness);
@@ -214,8 +217,16 @@ BLYNK_WRITE(zRGBra)
   // get a BLUE channel value
   rgb.b = param[2].asInt();
 
-  write_color(rgb);
+  setColor(rgb, curr_bright);
+  // bridge1.virtualWrite("V1",);
 }
+
+BLYNK_CONNECTED() {
+  Blynk.syncAll();
+  // bridge1.setAuthToken("h3-OfQzHbMAels-zG8xBA8QEGLsRbUy-"); // Place the AuthToken of the second hardware here
+}
+
+
 
 BLYNK_WRITE(blynk_switch_1)
 {
@@ -297,6 +308,11 @@ void setColor(color rgb, uint16_t brightness)
 
 void write_color(color rgb)
 {
+  // for (uint8 i = 0; i < 100 ; i++) {
+  //   // Overhead
+  // }
+  Serial.printf("R: %d G: %d B: %d",rgb.r,rgb.g,rgb.b);
+
   analogWrite(led_strip_r, rgb.r);
   analogWrite(led_strip_g, rgb.g);
   analogWrite(led_strip_b, rgb.b);

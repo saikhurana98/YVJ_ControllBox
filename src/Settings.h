@@ -6,7 +6,7 @@
 #define BOARD_HARDWARE_VERSION        "1.0.0"
 
 #define BOARD_FIRMWARE_TYPE           "FW01"                // Unique identifier of a firmware
-#define BOARD_NAME                    "YVJ_ControlBox"        // Name of your product. Should match App Export request info.
+#define BOARD_NAME                    "YVJ_ControlBox_I"        // Name of your product. Should match App Export request info.
 #define BOARD_VENDOR                  "QuadCore"        // Name of your company. Should match App Export request info.
 #define BOARD_TEMPLATE_ID             "TMPL75529"            // ID of the Tile Template. Can be found in Tile Template Settings
 
