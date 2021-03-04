@@ -29,8 +29,8 @@
 #include <ezButton.h>
 
 // Pinout
-#define led_strip_r D8
-#define led_strip_g D7
+#define led_strip_r D7
+#define led_strip_g D8
 #define led_strip_b D6
 
 #define relay_1 D0

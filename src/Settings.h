@@ -10,7 +10,7 @@
 #define BOARD_VENDOR                  "QuadCore"        // Name of your company. Should match App Export request info.
 #define BOARD_TEMPLATE_ID             "TMPL75529"            // ID of the Tile Template. Can be found in Tile Template Settings
 
-#define PRODUCT_WIFI_SSID             "YVJ_ControlBox_1"         // Name of the device, to be displayed during configuration. Should match export request info.
+#define PRODUCT_WIFI_SSID             "YVJ_ControlBox_I"         // Name of the device, to be displayed during configuration. Should match export request info.
 #define BOARD_CONFIG_AP_URL           "our-product.cc"      // Config page will be available in a browser at 'http://our-product.cc/'
 
 #define BOARD_DEFAULT_SERVER          "blynk-cloud.com"     // Default server to connect to (Blynk App may override it)
